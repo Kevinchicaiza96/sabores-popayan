@@ -172,3 +172,26 @@
   overflow: hidden;
   border: 1.5px solid #E2D5C8;
 }
+
+/* Compartir */
+.detalle__compartir {
+  margin-top: 24px;
+}
+
+.detalle__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background-color: #25D366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.detalle__whatsapp:hover {
+  background-color: #1ebe5d;
+}
