@@ -1,0 +1,156 @@
+.footer {
+  background-color: #1C2B1A;
+  color: #E8DDD0;
+  margin-top: auto;
+}
+
+.footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 24px 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Brand */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__logo-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #C8902A;
+  color: #1C2B1A;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer__logo-texto {
+  font-size: 17px;
+  font-weight: 700;
+  color: #F5F2EC;
+}
+
+.footer__logo-texto span {
+  color: #C8902A;
+}
+
+.footer__desc {
+  font-size: 13px;
+  color: #E8DDD0;
+  opacity: 0.7;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* Links */
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__links-titulo {
+  font-size: 12px;
+  font-weight: 700;
+  color: #C8902A;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.footer__link {
+  font-size: 13px;
+  color: #E8DDD0;
+  opacity: 0.75;
+  text-decoration: none;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.footer__link:hover {
+  opacity: 1;
+  color: #F5F2EC;
+}
+
+/* Credits */
+.footer__credits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer__credits-titulo {
+  font-size: 12px;
+  font-weight: 700;
+  color: #C8902A;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.footer__credits-texto {
+  font-size: 13px;
+  color: #E8DDD0;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.footer__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(200, 144, 42, 0.15);
+  border: 1px solid rgba(200, 144, 42, 0.3);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #C8902A;
+  width: fit-content;
+}
+
+/* Bottom */
+.footer__bottom {
+  border-top: 1px solid rgba(245, 242, 236, 0.1);
+  padding: 20px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #E8DDD0;
+  opacity: 0.5;
+}
+
+@media (max-width: 480px) {
+  .footer__bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

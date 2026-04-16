@@ -1,0 +1,89 @@
+.notfound {
+  min-height: calc(100vh - 64px);
+  background-color: #F5F2EC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.notfound__inner {
+  text-align: center;
+  max-width: 480px;
+}
+
+.notfound__codigo {
+  font-size: 120px;
+  font-weight: 900;
+  color: #E8DDD0;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -4px;
+}
+
+.notfound__icono {
+  font-size: 56px;
+  margin-bottom: 24px;
+}
+
+.notfound__titulo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1C2B1A;
+  margin-bottom: 12px;
+}
+
+.notfound__texto {
+  font-size: 15px;
+  color: #5C3D2E;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.notfound__acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.notfound__btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.notfound__btn--primary {
+  background-color: #1C2B1A;
+  color: #F5F2EC;
+}
+
+.notfound__btn--primary:hover {
+  background-color: #2d4a2b;
+}
+
+.notfound__btn--secondary {
+  background-color: #8B4513;
+  color: #F5F2EC;
+}
+
+.notfound__btn--secondary:hover {
+  background-color: #C8902A;
+}
+
+.notfound__btn--ghost {
+  background-color: transparent;
+  color: #5C3D2E;
+  border: 1.5px solid #E8DDD0;
+}
+
+.notfound__btn--ghost:hover {
+  border-color: #8B4513;
+  color: #8B4513;
+}

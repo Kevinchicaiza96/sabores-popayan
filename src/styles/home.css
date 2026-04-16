@@ -1,0 +1,129 @@
+.home {
+  background-color: #FDF8F2;
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #2C1810 0%, #3B5E3E 100%);
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.hero__label {
+  color: #D4903A;
+  font-size: 13px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  color: #FDF8F2;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.hero__title span {
+  color: #D4903A;
+}
+
+.hero__subtitle {
+  color: rgba(253, 248, 242, 0.75);
+  font-size: 18px;
+  max-width: 500px;
+  margin: 0 auto 40px;
+}
+
+.hero__form {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  gap: 8px;
+}
+
+.hero__input {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  background-color: #FDF8F2;
+  color: #2C1810;
+  outline: none;
+}
+
+.hero__input::placeholder {
+  color: #A08070;
+}
+
+.hero__btn {
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: none;
+  background-color: #C45E2E;
+  color: #FDF8F2;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.hero__btn:hover {
+  background-color: #A34E26;
+}
+
+/* CATEGORÍAS */
+.categorias {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  background-color: #FDF8F2;
+}
+
+.categorias__titulo {
+  color: #2C1810;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.categorias__subtitulo {
+  color: #7A5C4A;
+  margin-bottom: 32px;
+}
+
+.categorias__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.categoria-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2D5C8;
+  border-radius: 16px;
+  padding: 28px 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(44, 24, 16, 0.06);
+}
+
+.categoria-card:hover {
+  border-color: #C45E2E;
+  box-shadow: 0 4px 12px rgba(196, 94, 46, 0.15);
+}
+
+.categoria-card__emoji {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.categoria-card__nombre {
+  color: #2C1810;
+  font-weight: 600;
+  font-size: 15px;
+}
