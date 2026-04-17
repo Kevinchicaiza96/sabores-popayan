@@ -278,3 +278,20 @@
   font-size: 12px;
   color: #5C3D2E;
 }
+
+/* Select ordenar */
+.filtros__select {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #E8DDD0;
+  background-color: #fff;
+  color: #1C2B1A;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filtros__select:focus {
+  border-color: #8B4513;
+}

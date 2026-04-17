@@ -7,6 +7,17 @@ import '../styles/listado.css'
 
 const categorias = ['Todas', 'Comida Típica', 'Café', 'Panadería', 'Postres', 'Contemporánea']
 const precios = ['Todos', '$', '$$', '$$$']
+const ordenes = [
+  { valor: 'ninguno', label: 'Relevancia' },
+  { valor: 'rating_desc', label: '⭐ Mayor rating' },
+  { valor: 'rating_asc', label: '⭐ Menor rating' },
+  { valor: 'precio_asc', label: '💰 Menor precio' },
+  { valor: 'precio_desc', label: '💰 Mayor precio' },
+  { valor: 'nombre_asc', label: '🔤 A → Z' },
+  { valor: 'nombre_desc', label: '🔤 Z → A' },
+]
+
+const precioValor = { '$': 1, '$$': 2, '$$$': 3 }
 
 export default function Listado() {
   const [searchParams] = useSearchParams()
@@ -20,9 +31,10 @@ export default function Listado() {
     searchParams.get('q') || ''
   )
   const [verFavoritos, setVerFavoritos] = useState(false)
+  const [ordenActivo, setOrdenActivo] = useState('ninguno')
 
   const filtrados = useMemo(() => {
-    return restaurantes.filter((r) => {
+    let resultado = restaurantes.filter((r) => {
       const matchCategoria = categoriaActiva === 'Todas' || r.categoria === categoriaActiva
       const matchPrecio = precioActivo === 'Todos' || r.precio === precioActivo
       const matchBusqueda = busqueda === '' ||
@@ -31,7 +43,24 @@ export default function Listado() {
       const matchFavorito = !verFavoritos || favoritos.includes(r.id)
       return matchCategoria && matchPrecio && matchBusqueda && matchFavorito
     })
-  }, [categoriaActiva, precioActivo, busqueda, verFavoritos, favoritos])
+
+    switch (ordenActivo) {
+      case 'rating_desc':
+        return [...resultado].sort((a, b) => b.rating - a.rating)
+      case 'rating_asc':
+        return [...resultado].sort((a, b) => a.rating - b.rating)
+      case 'precio_asc':
+        return [...resultado].sort((a, b) => precioValor[a.precio] - precioValor[b.precio])
+      case 'precio_desc':
+        return [...resultado].sort((a, b) => precioValor[b.precio] - precioValor[a.precio])
+      case 'nombre_asc':
+        return [...resultado].sort((a, b) => a.nombre.localeCompare(b.nombre))
+      case 'nombre_desc':
+        return [...resultado].sort((a, b) => b.nombre.localeCompare(a.nombre))
+      default:
+        return resultado
+    }
+  }, [categoriaActiva, precioActivo, busqueda, verFavoritos, favoritos, ordenActivo])
 
   return (
     <div className="listado">
@@ -56,6 +85,7 @@ export default function Listado() {
               )}
             </button>
           </div>
+
           <div className="filtros__grupo">
             <span className="filtros__label">Categoría</span>
             <div className="filtros__pills">
@@ -70,6 +100,7 @@ export default function Listado() {
               ))}
             </div>
           </div>
+
           <div className="filtros__grupo">
             <span className="filtros__label">Precio</span>
             <div className="filtros__pills">
@@ -84,6 +115,20 @@ export default function Listado() {
               ))}
             </div>
           </div>
+
+          <div className="filtros__grupo">
+            <span className="filtros__label">Ordenar</span>
+            <select
+              className="filtros__select"
+              value={ordenActivo}
+              onChange={(e) => setOrdenActivo(e.target.value)}
+            >
+              {ordenes.map((o) => (
+                <option key={o.valor} value={o.valor}>{o.label}</option>
+              ))}
+            </select>
+          </div>
+
         </div>
       </div>
 
@@ -100,6 +145,7 @@ export default function Listado() {
               setBusqueda('')
               setPrecioActivo('Todos')
               setVerFavoritos(false)
+              setOrdenActivo('ninguno')
             }}>
               Limpiar filtros
             </button>
