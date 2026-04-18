@@ -97,8 +97,16 @@
 
 .categorias__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .categorias__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .categoria-card {
