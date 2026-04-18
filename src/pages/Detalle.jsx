@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import restaurantes from '../data/restaurants.json'
+import useSEO from '../hooks/useSEO'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import '../styles/detalle.css'
 
-// Fix iconos Leaflet
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -16,36 +16,31 @@ L.Icon.Default.mergeOptions({
 export default function Detalle() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const r = restaurantes.find((r) => r.id === parseInt(id))
 
-  // Más robusto (evita errores si cambia el tipo)
-  const r = restaurantes.find((r) => String(r.id) === String(id))
+  useSEO({
+    titulo: r ? r.nombre : 'Restaurante',
+    descripcion: r ? r.descripcion : ''
+  })
 
-  if (!r) {
-    return (
-      <div className="detalle__notfound">
-        <p>Restaurante no encontrado.</p>
-        <button onClick={() => navigate('/restaurantes')}>
-          Volver al listado
-        </button>
-      </div>
-    )
-  }
+  if (!r) return (
+    <div className="detalle__notfound">
+      <p>Restaurante no encontrado.</p>
+      <button onClick={() => navigate('/restaurantes')}>Volver al listado</button>
+    </div>
+  )
 
   return (
     <div className="detalle">
-
-      {/* Header imagen */}
       <div className="detalle__hero">
         <img src={r.imagen} alt={r.nombre} className="detalle__hero-img" />
         <div className="detalle__hero-overlay">
           <button className="detalle__back" onClick={() => navigate(-1)}>
             ← Volver
           </button>
-
           <div className="detalle__hero-info">
             <span className="detalle__categoria">{r.categoria}</span>
             <h1 className="detalle__nombre">{r.nombre}</h1>
-
             <div className="detalle__meta">
               <span>★ {r.rating}</span>
               <span>{r.precio}</span>
@@ -55,10 +50,7 @@ export default function Detalle() {
         </div>
       </div>
 
-      {/* Contenido */}
       <div className="detalle__content">
-
-        {/* Info principal */}
         <div className="detalle__main">
           <p className="detalle__descripcion">{r.descripcion}</p>
 
@@ -70,7 +62,6 @@ export default function Detalle() {
                 <p className="detalle__dato-valor">{r.direccion}</p>
               </div>
             </div>
-
             <div className="detalle__dato">
               <span className="detalle__dato-icon">📞</span>
               <div>
@@ -78,7 +69,6 @@ export default function Detalle() {
                 <p className="detalle__dato-valor">{r.telefono}</p>
               </div>
             </div>
-
             <div className="detalle__dato">
               <span className="detalle__dato-icon">🕐</span>
               <div>
@@ -86,7 +76,6 @@ export default function Detalle() {
                 <p className="detalle__dato-valor">{r.horario}</p>
               </div>
             </div>
-
             <div className="detalle__dato">
               <span className="detalle__dato-icon">💰</span>
               <div>
@@ -96,18 +85,14 @@ export default function Detalle() {
             </div>
           </div>
 
-          {/* Tags */}
           <div className="detalle__tags">
             {r.tags.map((tag) => (
-              <span key={tag} className="detalle__tag">
-                #{tag}
-              </span>
+              <span key={tag} className="detalle__tag">#{tag}</span>
             ))}
           </div>
 
-          {/* Compartir */}
           <div className="detalle__compartir">
-            <a
+            
               className="detalle__whatsapp"
               href={`https://wa.me/?text=🍽 *${r.nombre}* — ${r.categoria}%0A📍 ${r.direccion}%0A⭐ ${r.rating} | ${r.precio}%0A%0AEncuéntralo en Sabores Popayán:%0Ahttps://sabores-popayan.vercel.app/restaurantes/${r.id}`}
               target="_blank"
@@ -121,10 +106,8 @@ export default function Detalle() {
           </div>
         </div>
 
-        {/* Mapa */}
         <div className="detalle__mapa-wrap">
           <h2 className="detalle__mapa-titulo">Ubicación</h2>
-
           <MapContainer
             center={[r.lat, r.lng]}
             zoom={16}
@@ -140,7 +123,6 @@ export default function Detalle() {
             </Marker>
           </MapContainer>
         </div>
-
       </div>
     </div>
   )

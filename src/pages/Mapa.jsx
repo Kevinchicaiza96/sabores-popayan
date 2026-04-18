@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useNavigate } from 'react-router-dom'
 import restaurantes from '../data/restaurants.json'
+import useSEO from '../hooks/useSEO'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import '../styles/mapa.css'
@@ -15,10 +16,13 @@ L.Icon.Default.mergeOptions({
 export default function Mapa() {
   const navigate = useNavigate()
 
+  useSEO({
+    titulo: 'Mapa gastronómico',
+    descripcion: 'Mapa interactivo con todos los restaurantes y cafés de Popayán.'
+  })
+
   return (
     <div className="mapa-page">
-
-      {/* Header */}
       <div className="mapa-page__header">
         <h1 className="mapa-page__titulo">Mapa de Sabores</h1>
         <p className="mapa-page__subtitulo">
@@ -26,7 +30,6 @@ export default function Mapa() {
         </p>
       </div>
 
-      {/* Mapa */}
       <MapContainer
         center={[2.4419, -76.6069]}
         zoom={15}
@@ -58,7 +61,6 @@ export default function Mapa() {
           </Marker>
         ))}
       </MapContainer>
-
     </div>
   )
 }

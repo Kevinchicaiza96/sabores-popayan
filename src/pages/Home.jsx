@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useSEO from '../hooks/useSEO'
 import '../styles/home.css'
 
 const categorias = [
@@ -12,6 +13,11 @@ const categorias = [
 ]
 
 export default function Home() {
+  useSEO({
+    titulo: 'Inicio',
+    descripcion: 'Descubre los mejores restaurantes, cafés y lugares gastronómicos de Popayán, La Ciudad Blanca del Cauca.'
+  })
+
   const [busqueda, setBusqueda] = useState('')
   const navigate = useNavigate()
 

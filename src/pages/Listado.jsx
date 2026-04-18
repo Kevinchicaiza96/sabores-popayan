@@ -4,6 +4,7 @@ import restaurantes from '../data/restaurants.json'
 import SkeletonTarjeta from '../components/SkeletonTarjeta'
 import TarjetaRestaurante from '../components/TarjetaRestaurante'
 import useFavoritos from '../hooks/useFavoritos'
+import useSEO from '../hooks/useSEO'
 import '../styles/listado.css'
 
 const categorias = ['Todas', 'Comida Típica', 'Café', 'Panadería', 'Postres', 'Contemporánea']
@@ -21,6 +22,11 @@ const ordenes = [
 const precioValor = { '$': 1, '$$': 2, '$$$': 3 }
 
 export default function Listado() {
+  useSEO({
+    titulo: 'Restaurantes',
+    descripcion: 'Explora todos los restaurantes y cafés de Popayán. Filtra por categoría, precio y más.'
+  })
+
   const [searchParams] = useSearchParams()
   const { favoritos } = useFavoritos()
 
@@ -71,7 +77,6 @@ export default function Listado() {
 
   return (
     <div className="listado">
-
       <div className="filtros">
         <div className="filtros__inner">
           <div className="filtros__top">
@@ -135,7 +140,6 @@ export default function Listado() {
               ))}
             </select>
           </div>
-
         </div>
       </div>
 
@@ -171,7 +175,6 @@ export default function Listado() {
           </div>
         )}
       </div>
-
     </div>
   )
 }
