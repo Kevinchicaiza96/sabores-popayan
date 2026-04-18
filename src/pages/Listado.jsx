@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import restaurantes from '../data/restaurants.json'
+import SkeletonTarjeta from '../components/SkeletonTarjeta'
 import TarjetaRestaurante from '../components/TarjetaRestaurante'
 import useFavoritos from '../hooks/useFavoritos'
 import '../styles/listado.css'
@@ -32,6 +33,12 @@ export default function Listado() {
   )
   const [verFavoritos, setVerFavoritos] = useState(false)
   const [ordenActivo, setOrdenActivo] = useState('ninguno')
+  const [cargando, setCargando] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setCargando(false), 800)
+    return () => clearTimeout(timer)
+  }, [])
 
   const filtrados = useMemo(() => {
     let resultado = restaurantes.filter((r) => {
@@ -135,9 +142,10 @@ export default function Listado() {
       <div className="listado__content">
         <p className="listado__conteo">
           {verFavoritos ? '♥ Tus favoritos — ' : ''}
-          {filtrados.length} {filtrados.length === 1 ? 'lugar encontrado' : 'lugares encontrados'}
+          {cargando ? '...' : `${filtrados.length} ${filtrados.length === 1 ? 'lugar encontrado' : 'lugares encontrados'}`}
         </p>
-        {filtrados.length === 0 ? (
+
+        {filtrados.length === 0 && !cargando ? (
           <div className="listado__vacio">
             <p>{verFavoritos ? 'No tienes favoritos aún. ¡Guarda algunos!' : 'No encontramos resultados.'}</p>
             <button onClick={() => {
@@ -152,9 +160,14 @@ export default function Listado() {
           </div>
         ) : (
           <div className="listado__grid">
-            {filtrados.map((r, index) => (
-              <TarjetaRestaurante key={r.id} r={r} index={index} />
-            ))}
+            {cargando
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <SkeletonTarjeta key={i} />
+                ))
+              : filtrados.map((r, index) => (
+                  <TarjetaRestaurante key={r.id} r={r} index={index} />
+                ))
+            }
           </div>
         )}
       </div>
