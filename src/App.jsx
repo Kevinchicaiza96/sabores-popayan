@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Listado from './pages/Listado'
 import Detalle from './pages/Detalle'
 import Mapa from './pages/Mapa'
+import Registro from './pages/Registro'
 import NotFound from './pages/NotFound'
 import './styles/footer.css'
 
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/restaurantes" element={<Listado />} />
           <Route path="/restaurantes/:id" element={<Detalle />} />
           <Route path="/mapa" element={<Mapa />} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -1,0 +1,215 @@
+.registro {
+  min-height: 100vh;
+  background-color: #F5F2EC;
+}
+
+/* Hero */
+.registro__hero {
+  background-color: #1C2B1A;
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.registro__titulo {
+  font-size: 36px;
+  font-weight: 800;
+  color: #F5F2EC;
+  margin-bottom: 12px;
+}
+
+.registro__subtitulo {
+  font-size: 16px;
+  color: #E8DDD0;
+  opacity: 0.8;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Contenido */
+.registro__content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .registro__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Beneficios */
+.registro__ben-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1C2B1A;
+  margin-bottom: 24px;
+}
+
+.registro__ben-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.registro__ben-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.registro__ben-icon {
+  font-size: 24px;
+  margin-top: 2px;
+}
+
+.registro__ben-nombre {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1C2B1A;
+  margin-bottom: 4px;
+}
+
+.registro__ben-texto {
+  font-size: 13px;
+  color: #5C3D2E;
+  line-height: 1.5;
+}
+
+/* Formulario */
+.registro__form-wrap {
+  background-color: #fff;
+  border: 1.5px solid #E8DDD0;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.registro__form-titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1C2B1A;
+  margin-bottom: 24px;
+}
+
+.registro__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.registro__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.registro__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .registro__fila {
+    grid-template-columns: 1fr;
+  }
+}
+
+.registro__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1C2B1A;
+}
+
+.registro__input {
+  padding: 11px 14px;
+  border: 1.5px solid #E8DDD0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1C2B1A;
+  background-color: #F5F2EC;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  width: 100%;
+}
+
+.registro__input:focus {
+  border-color: #8B4513;
+}
+
+.registro__textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.registro__btn {
+  padding: 14px;
+  background-color: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+
+.registro__btn:hover:not(:disabled) {
+  background-color: #1ebe5d;
+}
+
+.registro__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.registro__nota {
+  font-size: 12px;
+  color: #5C3D2E;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Éxito */
+.registro__exito {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.registro__exito-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.registro__exito h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1C2B1A;
+  margin-bottom: 8px;
+}
+
+.registro__exito p {
+  font-size: 15px;
+  color: #5C3D2E;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.registro__exito button {
+  padding: 12px 28px;
+  background-color: #1C2B1A;
+  color: #F5F2EC;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}

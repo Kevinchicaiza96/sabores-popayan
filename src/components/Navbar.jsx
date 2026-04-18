@@ -2,6 +2,9 @@ import { Link, NavLink } from 'react-router-dom'
 import '../styles/navbar.css'
 
 export default function Navbar() {
+  const linkClass = ({ isActive }) =>
+    'navbar__link' + (isActive ? ' navbar__link--active' : '')
+
   return (
     <nav className="navbar">
       <div className="navbar__inner">
@@ -13,15 +16,10 @@ export default function Navbar() {
         </Link>
 
         <div className="navbar__links">
-          <NavLink to="/" end className={({ isActive }) =>
-            `navbar__link ${isActive ? 'navbar__link--active' : ''}`
-          }>Inicio</NavLink>
-          <NavLink to="/restaurantes" className={({ isActive }) =>
-            `navbar__link ${isActive ? 'navbar__link--active' : ''}`
-          }>Restaurantes</NavLink>
-          <NavLink to="/mapa" className={({ isActive }) =>
-            `navbar__link ${isActive ? 'navbar__link--active' : ''}`
-          }>Mapa</NavLink>
+          <NavLink to="/" end className={linkClass}>Inicio</NavLink>
+          <NavLink to="/restaurantes" className={linkClass}>Restaurantes</NavLink>
+          <NavLink to="/mapa" className={linkClass}>Mapa</NavLink>
+          <NavLink to="/registro" className={linkClass}>Registrar lugar</NavLink>
         </div>
       </div>
     </nav>
