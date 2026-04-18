@@ -5,6 +5,8 @@ import SkeletonTarjeta from '../components/SkeletonTarjeta'
 import TarjetaRestaurante from '../components/TarjetaRestaurante'
 import useFavoritos from '../hooks/useFavoritos'
 import useSEO from '../hooks/useSEO'
+import useGeolocalizacion from '../hooks/useGeolocalizacion'
+import { calcularDistancia } from '../utils/distancia'
 import '../styles/listado.css'
 
 const categorias = ['Todas', 'Comida Típica', 'Café', 'Panadería', 'Postres', 'Contemporánea']
@@ -17,6 +19,7 @@ const ordenes = [
   { valor: 'precio_desc', label: '💰 Mayor precio' },
   { valor: 'nombre_asc', label: '🔤 A → Z' },
   { valor: 'nombre_desc', label: '🔤 Z → A' },
+  { valor: 'cercano', label: '📍 Más cercano' },
 ]
 
 const precioValor = { '$': 1, '$$': 2, '$$$': 3 }
@@ -29,6 +32,7 @@ export default function Listado() {
 
   const [searchParams] = useSearchParams()
   const { favoritos } = useFavoritos()
+  const { estado, coordenadas, error, obtenerUbicacion } = useGeolocalizacion()
 
   const [categoriaActiva, setCategoriaActiva] = useState(
     searchParams.get('categoria') || 'Todas'
@@ -45,6 +49,12 @@ export default function Listado() {
     const timer = setTimeout(() => setCargando(false), 800)
     return () => clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    if (coordenadas) {
+      setTimeout(() => setOrdenActivo('cercano'), 0)
+    }
+  }, [coordenadas])
 
   const filtrados = useMemo(() => {
     let resultado = restaurantes.filter((r) => {
@@ -70,10 +80,17 @@ export default function Listado() {
         return [...resultado].sort((a, b) => a.nombre.localeCompare(b.nombre))
       case 'nombre_desc':
         return [...resultado].sort((a, b) => b.nombre.localeCompare(a.nombre))
+      case 'cercano':
+        if (!coordenadas) return resultado
+        return [...resultado].sort((a, b) => {
+          const dA = parseFloat(calcularDistancia(coordenadas.lat, coordenadas.lng, a.lat, a.lng))
+          const dB = parseFloat(calcularDistancia(coordenadas.lat, coordenadas.lng, b.lat, b.lng))
+          return dA - dB
+        })
       default:
         return resultado
     }
-  }, [categoriaActiva, precioActivo, busqueda, verFavoritos, favoritos, ordenActivo])
+  }, [categoriaActiva, precioActivo, busqueda, verFavoritos, favoritos, ordenActivo, coordenadas])
 
   return (
     <div className="listado">
@@ -96,7 +113,24 @@ export default function Listado() {
                 <span className="filtros__favcount">{favoritos.length}</span>
               )}
             </button>
+            <button
+              className={`filtros__geobtn ${estado === 'exito' ? 'filtros__geobtn--activo' : ''}`}
+              onClick={obtenerUbicacion}
+              title="Ordenar por distancia"
+            >
+              {estado === 'cargando' ? '...' : '📍'}
+            </button>
           </div>
+
+          {error && (
+            <p className="filtros__error">{error}</p>
+          )}
+
+          {estado === 'exito' && (
+            <p className="filtros__geo-ok">
+              📍 Mostrando restaurantes por distancia desde tu ubicación
+            </p>
+          )}
 
           <div className="filtros__grupo">
             <span className="filtros__label">Categoría</span>
@@ -104,7 +138,7 @@ export default function Listado() {
               {categorias.map((cat) => (
                 <button
                   key={cat}
-                  className={`pill ${categoriaActiva === cat ? 'pill--activa' : ''}`}
+                  className={'pill' + (categoriaActiva === cat ? ' pill--activa' : '')}
                   onClick={() => setCategoriaActiva(cat)}
                 >
                   {cat}
@@ -119,7 +153,7 @@ export default function Listado() {
               {precios.map((p) => (
                 <button
                   key={p}
-                  className={`pill ${precioActivo === p ? 'pill--activa' : ''}`}
+                  className={'pill' + (precioActivo === p ? ' pill--activa' : '')}
                   onClick={() => setPrecioActivo(p)}
                 >
                   {p}
@@ -146,7 +180,7 @@ export default function Listado() {
       <div className="listado__content">
         <p className="listado__conteo">
           {verFavoritos ? '♥ Tus favoritos — ' : ''}
-          {cargando ? '...' : `${filtrados.length} ${filtrados.length === 1 ? 'lugar encontrado' : 'lugares encontrados'}`}
+          {cargando ? '...' : filtrados.length + ' ' + (filtrados.length === 1 ? 'lugar encontrado' : 'lugares encontrados')}
         </p>
 
         {filtrados.length === 0 && !cargando ? (
@@ -169,7 +203,14 @@ export default function Listado() {
                   <SkeletonTarjeta key={i} />
                 ))
               : filtrados.map((r, index) => (
-                  <TarjetaRestaurante key={r.id} r={r} index={index} />
+                  <TarjetaRestaurante
+                    key={r.id}
+                    r={r}
+                    index={index}
+                    distancia={coordenadas
+                      ? calcularDistancia(coordenadas.lat, coordenadas.lng, r.lat, r.lng)
+                      : null}
+                  />
                 ))
             }
           </div>

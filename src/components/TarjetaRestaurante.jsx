@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import useAnimateOnScroll from '../hooks/useAnimateOnScroll'
 import useFavoritos from '../hooks/useFavoritos'
 
-export default function TarjetaRestaurante({ r, index = 0 }) {
+export default function TarjetaRestaurante({ r, index = 0, distancia = null }) {
   const navigate = useNavigate()
   const { ref, visible } = useAnimateOnScroll(0.1)
   const { toggleFavorito, esFavorito } = useFavoritos()
@@ -12,19 +12,18 @@ export default function TarjetaRestaurante({ r, index = 0 }) {
     <div
       ref={ref}
       className="tarjeta"
-      onClick={() => navigate(`/restaurantes/${r.id}`)}
+      onClick={() => navigate('/restaurantes/' + r.id)}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(28px)',
-        transition: `opacity 0.45s ease ${index * 0.08}s, transform 0.45s ease ${index * 0.08}s`,
+        transition: 'opacity 0.45s ease ' + (index * 0.08) + 's, transform 0.45s ease ' + (index * 0.08) + 's',
       }}
     >
       <div className="tarjeta__img-wrap">
         <img src={r.imagen} alt={r.nombre} className="tarjeta__img" />
         <span className="tarjeta__precio">{r.precio}</span>
-
         <button
-          className={`tarjeta__fav ${favorito ? 'tarjeta__fav--activo' : ''}`}
+          className={'tarjeta__fav' + (favorito ? ' tarjeta__fav--activo' : '')}
           onClick={(e) => {
             e.stopPropagation()
             toggleFavorito(r.id)
@@ -41,7 +40,11 @@ export default function TarjetaRestaurante({ r, index = 0 }) {
         <p className="tarjeta__descripcion">{r.descripcion}</p>
         <div className="tarjeta__footer">
           <span className="tarjeta__rating">★ {r.rating}</span>
-          <span className="tarjeta__direccion">📍 {r.direccion.split(',')[0]}</span>
+          {distancia ? (
+            <span className="tarjeta__distancia">📍 {distancia}</span>
+          ) : (
+            <span className="tarjeta__direccion">📍 {r.direccion.split(',')[0]}</span>
+          )}
         </div>
       </div>
     </div>

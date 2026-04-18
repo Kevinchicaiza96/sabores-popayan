@@ -295,3 +295,41 @@
 .filtros__select:focus {
   border-color: #8B4513;
 }
+
+/* Botón geolocalización */
+.filtros__geobtn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #E8DDD0;
+  background-color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filtros__geobtn:hover {
+  border-color: #8B4513;
+}
+
+.filtros__geobtn--activo {
+  background-color: #1C2B1A;
+  border-color: #1C2B1A;
+}
+
+.filtros__error {
+  font-size: 13px;
+  color: #c0392b;
+  padding: 6px 0;
+}
+
+.filtros__geo-ok {
+  font-size: 13px;
+  color: #4A7C59;
+  padding: 6px 0;
+}
+
+.tarjeta__distancia {
+  font-size: 12px;
+  color: #4A7C59;
+  font-weight: 600;
+}
