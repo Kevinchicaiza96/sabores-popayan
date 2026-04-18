@@ -25,6 +25,14 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .filtros__busqueda {
+    min-width: 0;
+    flex: 1;
+  }
 }
 
 .filtros__busqueda {
